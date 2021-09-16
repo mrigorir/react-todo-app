@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setTodoAction } from '../../redux/todos/todos';
+import { setTodoAction, clearCompletedAction } from '../../redux/todos/todos';
 
 function Form() {
   const titleRef = useRef();
@@ -34,7 +34,7 @@ function Form() {
         required
       />
       <button type="submit"> Create </button>
-      <button type="button"> Clear all Completed todos </button>
+      <button type="button" onClick={() => dispatch(clearCompletedAction())}> Clear all Completed todos </button>
     </form>
   );
 }

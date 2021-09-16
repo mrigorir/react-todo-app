@@ -1,25 +1,39 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleTodoAction } from '../../redux/todos/todos';
+import { toggleTodoAction, editTodoAction } from '../../redux/todos/todos';
 
 function Todo({
   id, title, description, completed,
 }) {
   const dispatch = useDispatch();
+  const titleRef = useRef();
+  const descRef = useRef();
+  const [edtiTitle, setEditTitle] = useState(title);
+  const [editDesc, setEditDesc] = useState(description);
+
+  const handleValues = () => {
+    setEditTitle(titleRef.current.value);
+    setEditDesc(descRef.current.value);
+  };
+
+  const handleKey = (e) => {
+    if (e.key === 'Enter') dispatch(editTodoAction(id, edtiTitle, editDesc));
+  };
+
   return (
     <li id={id}>
       <input type="checkbox" checked={completed} onChange={() => dispatch(toggleTodoAction(id))} />
       <br />
-      <span>
+      <label htmlFor="title">
         title:
-        {title}
-      </span>
+        <input type="text" ref={titleRef} value={edtiTitle} onChange={handleValues} onKeyPress={handleKey} />
+      </label>
       <br />
-      <span>
+      <label htmlFor="description">
         description:
-        {description}
-      </span>
+        <input type="text" ref={descRef} value={editDesc} onChange={handleValues} onKeyPress={handleKey} />
+      </label>
     </li>
   );
 }
