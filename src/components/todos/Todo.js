@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleTodoAction, editTodoAction } from '../../redux/todos/todos';
+import { toggleTodoAction, editTodoAction, removeTodoAction } from '../../redux/todos/todos';
 
 function Todo({
   id, title, description, completed,
@@ -34,6 +34,7 @@ function Todo({
         description:
         <input type="text" ref={descRef} value={editDesc} onChange={handleValues} onKeyPress={handleKey} />
       </label>
+      <button type="button" onClick={() => dispatch(removeTodoAction(id))}>Remove</button>
     </li>
   );
 }

@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
+import { findTodo, removeTodo } from './logic';
 
 const GET_TODOS = 'app/todos/GET_TODOS';
 const SET_TODO = 'app/todos/SET_TODO';
 const TOGGLE_TODO = 'app/todos/TOGGLE_TODO';
 const CLEAR_COMPLETED = 'app/todos/CLEAR_COMPLETED';
 const EDIT_TODO = 'app/todos/EDIT_TODO';
-let newTodos = '';
-let todo = '';
+const REMOVE_TODO = 'app/todos/REMOVE_TODO';
 
 const getTodosAction = (storedTodos) => ({
   type: GET_TODOS,
@@ -37,6 +37,11 @@ const editTodoAction = (id, title, description) => ({
   },
 });
 
+const removeTodoAction = (id) => ({
+  type: REMOVE_TODO,
+  payload: id,
+});
+
 const clearCompletedAction = () => ({
   type: CLEAR_COMPLETED,
 });
@@ -48,18 +53,13 @@ const todosReducer = (state = [], action) => {
     case GET_TODOS:
       return [...state, ...action.payload];
     case TOGGLE_TODO:
-      newTodos = [...state];
-      todo = newTodos.find((todo) => todo.id === action.payload);
-      todo.completed = !todo.completed;
-      return [...newTodos];
+      return findTodo(state, action.payload);
     case EDIT_TODO:
-      newTodos = [...state];
-      todo = newTodos.find((todo) => todo.id === action.payload.id);
-      todo.title = action.payload.title;
-      todo.description = action.payload.description;
-      return [...newTodos];
+      return findTodo(state, action.payload.id, action.payload.title, action.payload.description);
+    case REMOVE_TODO:
+      return removeTodo(state, action.payload);
     case CLEAR_COMPLETED:
-      return [...state.filter((todos) => todos.completed === false)];
+      return removeTodo(state);
     default:
       return state;
   }
@@ -67,5 +67,6 @@ const todosReducer = (state = [], action) => {
 
 export {
   setTodoAction, getTodosAction, toggleTodoAction,
-  editTodoAction, clearCompletedAction, todosReducer,
+  editTodoAction, clearCompletedAction, removeTodoAction,
+  todosReducer,
 };
