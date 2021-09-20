@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import hooks from '../../hooks/hooks';
-import { DragDropContext, Dropable } from 'react-beautiful-dnd';
 import TodoList from '../todos/TodoList';
 import Form from '../todos/Form';
 
@@ -13,11 +13,14 @@ export default function Home() {
   return (
     <div>
       <DragDropContext>
-      <Droppable droppableId="characters">
-    {(provided) => (
-      <TodoList todos={todos} provided={provided}/>
-    )}
-  </Droppable>
+        <Droppable droppableId="characters">
+          {(provided) => {
+            const { droppableProps, innerRef } = provided;
+            return (
+              <TodoList todos={todos} droppableProps={droppableProps} innerRef={innerRef} />
+            );
+          }}
+        </Droppable>
       </DragDropContext>
       <Form />
     </div>

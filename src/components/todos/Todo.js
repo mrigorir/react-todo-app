@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { toggleTodoAction, editTodoAction, removeTodoAction } from '../../redux/todos/todos';
 
 function Todo({
-  id, title, description, completed,
+  id, title, description, completed, draggableProps, innerRef, dragHandleProps,
 }) {
   const dispatch = useDispatch();
   const titleRef = useRef();
@@ -22,7 +22,7 @@ function Todo({
   };
 
   return (
-    <li id={id}>
+    <li id={id} ref={innerRef} {...draggableProps} {...dragHandleProps}>
       <input type="checkbox" checked={completed} onChange={() => dispatch(toggleTodoAction(id))} />
       <br />
       <label htmlFor="title">
@@ -39,11 +39,19 @@ function Todo({
   );
 }
 
+Todo.defaultProps = {
+  dragHandleProps: '',
+  draggableProps: '',
+};
+
 Todo.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
+  innerRef: PropTypes.func.isRequired,
+  draggableProps: PropTypes.instanceOf(Object),
+  dragHandleProps: PropTypes.instanceOf(Object),
 };
 
 export default Todo;
