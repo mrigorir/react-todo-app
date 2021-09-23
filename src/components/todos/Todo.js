@@ -9,8 +9,9 @@ function Todo({
   const dispatch = useDispatch();
   const titleRef = useRef();
   const descRef = useRef();
-  const [edtiTitle, setEditTitle] = useState(title);
+  const [editTitle, setEditTitle] = useState(title);
   const [editDesc, setEditDesc] = useState(description);
+  const [show, setShow] = useState('d-none');
 
   const handleValues = () => {
     setEditTitle(titleRef.current.value);
@@ -18,7 +19,12 @@ function Todo({
   };
 
   const handleKey = (e) => {
-    if (e.key === 'Enter') dispatch(editTodoAction(id, edtiTitle, editDesc));
+    setShow('d-block');
+    if (e.key === 'Enter') {
+      dispatch(editTodoAction(id, editTitle, editDesc));
+      setShow('d-none');
+    }
+    if (e.key === 'Backspace') setShow('d-block');
   };
 
   return (
@@ -27,14 +33,15 @@ function Todo({
       <br />
       <label htmlFor="title">
         title:
-        <input type="text" ref={titleRef} value={edtiTitle} onChange={handleValues} onKeyPress={handleKey} />
+        <input type="text" ref={titleRef} value={editTitle} onChange={handleValues} onKeyDown={handleKey} />
       </label>
       <br />
       <label htmlFor="description">
         description:
-        <input type="text" ref={descRef} value={editDesc} onChange={handleValues} onKeyPress={handleKey} />
+        <input type="text" ref={descRef} value={editDesc} onChange={handleValues} onKeyDown={handleKey} />
       </label>
       <button type="button" onClick={() => dispatch(removeTodoAction(id))}>Remove</button>
+      <span className={show}>Editing...press enter to submit changes.</span>
     </li>
   );
 }

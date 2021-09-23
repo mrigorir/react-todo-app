@@ -31,7 +31,6 @@ function Form() {
         ref={descriptionRef}
         value={description}
         onChange={handleDescription}
-        required
       />
       <button type="submit"> Create </button>
       <button type="button" onClick={() => dispatch(clearCompletedAction())}> Clear all Completed todos </button>

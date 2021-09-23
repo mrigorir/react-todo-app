@@ -1,0 +1,4 @@
+.bg-white, 
+.bg-warning {
+  transition: all ease-in-out .3s;
+}
