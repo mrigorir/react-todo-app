@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toggleTodoAction, editTodoAction, removeTodoAction } from '../../redux/todos/todos';
 
 function Todo({
@@ -41,7 +42,10 @@ function Todo({
         <input type="text" ref={descRef} value={editDesc} onChange={handleValues} onKeyDown={handleKey} />
       </label>
       <button type="button" onClick={() => dispatch(removeTodoAction(id))}>Remove</button>
-      <span className={show}>Editing...press enter to submit changes.</span>
+      <span className={show}>
+        <FontAwesomeIcon icon={['fas', 'cog']} size="1x" spin className="me-2 text-primary" />
+        Editing...press enter to submit changes.
+      </span>
     </li>
   );
 }
