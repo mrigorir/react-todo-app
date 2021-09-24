@@ -12,7 +12,7 @@ function Todo({
   const descRef = useRef();
   const [editTitle, setEditTitle] = useState(title);
   const [editDesc, setEditDesc] = useState(description);
-  const [show, setShow] = useState('d-none');
+  const [show, setShow] = useState('opacity-0');
 
   const handleValues = () => {
     setEditTitle(titleRef.current.value);
@@ -20,12 +20,12 @@ function Todo({
   };
 
   const handleKey = (e) => {
-    setShow('d-block');
+    setShow('opacity-100 d-block mt-3');
     if (e.key === 'Enter') {
       dispatch(editTodoAction(id, editTitle, editDesc));
-      setShow('d-none');
+      setShow('opacity-0');
     }
-    if (e.key === 'Backspace') setShow('d-block');
+    if (e.key === 'Backspace') setShow('opacity-100 d-block mt-3');
   };
 
   return (
@@ -42,9 +42,12 @@ function Todo({
         <input type="text" ref={descRef} value={editDesc} onChange={handleValues} onKeyDown={handleKey} />
       </label>
       <button type="button" onClick={() => dispatch(removeTodoAction(id))}>Remove</button>
+      <br />
       <span className={show}>
         <FontAwesomeIcon icon={['fas', 'cog']} size="1x" spin className="me-2 text-primary" />
-        Editing...press enter to submit changes.
+        Editing...press
+        <FontAwesomeIcon icon={['fas', 'arrow-right']} size="1x" className="mx-2 text-success" />
+        to submit changes.
       </span>
     </li>
   );
