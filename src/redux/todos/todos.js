@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { setTodo, findTodo, removeTodo } from './logic';
+import getImages from '../../services/apiResources';
 
 const GET_TODOS = 'app/todos/GET_TODOS';
 const SET_TODO = 'app/todos/SET_TODO';
@@ -18,17 +19,20 @@ const getTodosAction = (storedTodos) => (
   }
 );
 
-const setTodoAction = (title, description) => (
-  {
+const setTodoAction = (title, description) => async (dispatch) => {
+  const images = await getImages();
+
+  dispatch({
     type: SET_TODO,
     payload: {
       id: uuidv4(),
       title,
       description,
+      avatar: images[Math.floor(Math.random() * (20))].url,
       completed: false,
     },
-  }
-);
+  });
+};
 
 const toggleTodoAction = (id) => (
   {

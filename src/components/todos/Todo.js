@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toggleTodoAction, editTodoAction, removeTodoAction } from '../../redux/todos/todos';
 
 function Todo({
-  id, title, description, completed, draggableProps, innerRef, dragHandleProps,
+  id, title, description, completed, avatar, draggableProps, innerRef, dragHandleProps,
 }) {
   const dispatch = useDispatch();
   const titleRef = useRef();
@@ -30,6 +30,7 @@ function Todo({
 
   return (
     <li id={id} ref={innerRef} {...draggableProps} {...dragHandleProps}>
+      <img src={avatar} alt="user" height="100" width="100" className="rounded img-fluid" />
       <input type="checkbox" checked={completed} onChange={() => dispatch(toggleTodoAction(id))} />
       <br />
       <label htmlFor="title">
@@ -63,6 +64,7 @@ Todo.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
+  avatar: PropTypes.string.isRequired,
   innerRef: PropTypes.func.isRequired,
   draggableProps: PropTypes.instanceOf(Object),
   dragHandleProps: PropTypes.instanceOf(Object),

@@ -9,7 +9,7 @@ function TodoList({
     <ul {...droppableProps} ref={innerRef} className={backGround}>
       {todos.map((todo, index) => {
         const {
-          id, title, description, completed,
+          id, title, description, completed, avatar,
         } = todo;
         return (
           <Draggable key={id} draggableId={id} index={index}>
@@ -22,6 +22,7 @@ function TodoList({
                   title={title}
                   description={description}
                   completed={completed}
+                  avatar={avatar}
                   draggableProps={draggableProps}
                   innerRef={innerRef}
                   dragHandleProps={dragHandleProps}
