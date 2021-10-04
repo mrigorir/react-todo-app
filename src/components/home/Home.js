@@ -4,31 +4,33 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import hooks from '../../hooks/hooks';
 import TodoList from '../todos/TodoList';
-import Form from '../todos/Form';
+import FormTodo from '../todos/FormTodo';
 import { reorderTodoAction } from '../../redux/todos/todos';
 import '../../styles/todoList.css';
 
 export default function Home() {
   const todos = useSelector((state) => state.todos);
-  // const images = useSelector((state) => state.images);
   const dispatch = useDispatch();
-  const [backGround, setBackGround] = useState('bg-white');
+  const [backGround, setBackGround] = useState('bg-gray');
+  const [todoBackGround, setTodoBackGround] = useState('bg-white');
 
   hooks();
 
   const handleDragEnd = (result) => {
-    setBackGround('bg-white');
+    setBackGround('bg-gray');
+    setTodoBackGround('bg-white');
     if (!result.destination) return;
     dispatch(reorderTodoAction(result));
   };
 
   const handleDragStart = () => {
-    setBackGround('bg-warning');
+    setBackGround('bg-todoList');
+    setTodoBackGround('bg-todo');
   };
 
   return (
     <div>
-      <Container>
+      <Container className="mb-5">
         <Row>
           <Col md={12} className="d-flex align-items-center justify-content-center">
             <DragDropContext
@@ -42,6 +44,7 @@ export default function Home() {
                     <TodoList
                       todos={todos}
                       backGround={backGround}
+                      todoBackGround={todoBackGround}
                       droppableProps={droppableProps}
                       innerRef={innerRef}
                       placeholder={placeholder}
@@ -54,7 +57,7 @@ export default function Home() {
         </Row>
       </Container>
       <Container fluid className="d-flex align-items-center justify-content-center mt-5">
-        <Form />
+        <FormTodo />
       </Container>
     </div>
   );

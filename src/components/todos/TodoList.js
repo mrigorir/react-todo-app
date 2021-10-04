@@ -1,12 +1,14 @@
 import { Draggable } from 'react-beautiful-dnd';
+import { ListGroup, Badge } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Todo from './Todo';
 
 function TodoList({
-  todos, backGround, droppableProps, innerRef, placeholder,
+  todos, backGround, droppableProps, innerRef, placeholder, todoBackGround,
 }) {
+  if (todos.length === 0) return <Badge bg="secondary" className="my-5 fs-1" ref={innerRef}> No tasks submmited yet.</Badge>;
   return (
-    <ul {...droppableProps} ref={innerRef} className={backGround}>
+    <ListGroup {...droppableProps} ref={innerRef} className={`${backGround} border-0 my-5 py-2 px-3`}>
       {todos.map((todo, index) => {
         const {
           id, title, description, completed, avatar,
@@ -26,6 +28,7 @@ function TodoList({
                   draggableProps={draggableProps}
                   innerRef={innerRef}
                   dragHandleProps={dragHandleProps}
+                  todoBackGround={todoBackGround}
                 />
               );
             }}
@@ -33,7 +36,7 @@ function TodoList({
         );
       })}
       {placeholder}
-    </ul>
+    </ListGroup>
   );
 }
 
@@ -50,6 +53,7 @@ TodoList.propTypes = {
   placeholder: PropTypes.instanceOf(Object),
   innerRef: PropTypes.func.isRequired,
   backGround: PropTypes.string.isRequired,
+  todoBackGround: PropTypes.string.isRequired,
 };
 
 export default TodoList;

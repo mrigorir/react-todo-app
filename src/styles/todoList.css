@@ -1,8 +1,73 @@
+/* Fonts */
+
+@import url('https://fonts.googleapis.com/css?family=Bungee+Inline:regular,bold,italic&subset=latin,latin-ext');
+
+* {
+  font-family: Bungee Inline;
+}
+
+/* Form */
+
+input::placeholder,
+textarea::placeholder {
+  font-size: 15px;
+}
+
+input[type="checkbox"],
+.badge {
+  z-index: 100;
+  cursor: pointer;
+}
+
+textarea.form-control {
+  resize: none;
+  overflow-y: auto;
+}
+
+input[type="text"].form-control:not(.formDesc, .formTitle) {
+  width: 30%;
+}
+
+input[type="text"]:focus:not(.formDesc, .formTitle),
+textarea.form-control:focus:not(.formDesc, .formTitle) {
+  width: 70%;
+}
+
+input[type="text"]:focus,
+input[type="checkbox"]:focus,
+textarea.form-control:focus,
+.formDesc,
+.formTitle {
+  outline: none !important;
+  box-shadow: 2px 2px 10px #e3e7eb;
+  resize: horizontal;
+}
+
+/* Backgrounds */
+
+.bg-gray {
+  background-color: #e4e4ec;
+}
+
+.bg-todoList {
+  background-color: #ffebe6;
+}
+
+.bg-todo {
+  background-color: #eae6ff;
+}
+
+.bg-title {
+  background-color: #deebff;
+}
+
 .bg-white, 
-.bg-warning,
+.bg-todoList,
 .opacity-0,
 .opacity-100,
 .mt-0,
-.mt-3 {
+.mt-3,
+input[type="text"]:focus,
+textarea.form-control:focus {
   transition: all ease-in-out .3s;
 }

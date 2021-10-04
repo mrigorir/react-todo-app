@@ -5,13 +5,16 @@ const setTodo = (state, payload) => {
 };
 
 const findTodo = (state, id, title = '', description = '') => {
-  const todo = state.find((todo) => todo.id === id);
+  const newTodos = [...state];
+  const todo = newTodos.find((todo) => todo.id === id);
 
-  if (title === '' && description === '') todo.completed = !todo.completed;
+  if (title === '' && description === '') {
+    todo.completed = !todo.completed;
+    return [...newTodos];
+  }
   todo.title = title;
   todo.description = description;
-
-  return [...state];
+  return [...newTodos];
 };
 
 const removeTodo = (state, id = '') => {
