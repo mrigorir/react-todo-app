@@ -19,7 +19,7 @@
 ## Image Preview
 ![Screenshot Main Page](src/assests/images/capture.jpg)
 
-## :star: [Live Demo](https://lucid-heyrovsky-ce6db2.netlify.app/) :star:
+## :star: [Live Demo](https://hopeful-villani-16dc54.netlify.app) :star:
 
 ## Getting Started
 
