@@ -46,7 +46,7 @@ textarea.form-control:focus,
 /* Backgrounds */
 
 .bg-gray {
-  background-color: #e4e4ec;
+  background-color: #dddde4;
 }
 
 .bg-todoList {
@@ -54,15 +54,20 @@ textarea.form-control:focus,
 }
 
 .bg-todo {
-  background-color: #eae6ff;
+  background-color: #c7bff3;
 }
 
 .bg-title {
   background-color: #deebff;
 }
 
-.bg-white, 
-.bg-todoList,
+/* borders */
+
+.border-purple {
+  border-color: #cbc3f8;
+  box-shadow: 5px 5px 5px #ccc;
+}
+
 .opacity-0,
 .opacity-100,
 .mt-0,

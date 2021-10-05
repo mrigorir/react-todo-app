@@ -5,27 +5,26 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import hooks from '../../hooks/hooks';
 import TodoList from '../todos/TodoList';
 import FormTodo from '../todos/FormTodo';
-import { reorderTodoAction } from '../../redux/todos/todos';
+import { reorderTodoAction, dragStartAction, dragEndAction } from '../../redux/todos/todos';
 import '../../styles/todoList.css';
 
 export default function Home() {
   const todos = useSelector((state) => state.todos);
   const dispatch = useDispatch();
-  const [backGround, setBackGround] = useState('bg-gray');
-  const [todoBackGround, setTodoBackGround] = useState('bg-white');
+  const [listBackGround, setListBackGround] = useState('bg-gray');
 
   hooks();
 
   const handleDragEnd = (result) => {
-    setBackGround('bg-gray');
-    setTodoBackGround('bg-white');
+    setListBackGround('bg-gray');
     if (!result.destination) return;
     dispatch(reorderTodoAction(result));
+    dispatch(dragEndAction(result));
   };
 
-  const handleDragStart = () => {
-    setBackGround('bg-todoList');
-    setTodoBackGround('bg-todo');
+  const handleDragStart = (id) => {
+    setListBackGround('bg-todoList');
+    dispatch(dragStartAction(id));
   };
 
   return (
@@ -43,11 +42,11 @@ export default function Home() {
                   return (
                     <TodoList
                       todos={todos}
-                      backGround={backGround}
-                      todoBackGround={todoBackGround}
+                      listBackGround={listBackGround}
                       droppableProps={droppableProps}
                       innerRef={innerRef}
                       placeholder={placeholder}
+                      dragStart={handleDragStart}
                     />
                   );
                 }}
